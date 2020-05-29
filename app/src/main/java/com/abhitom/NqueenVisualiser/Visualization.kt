@@ -53,7 +53,7 @@ class Visualization : AppCompatActivity() {
         var mainScreenID = resources.getIdentifier("mainScreen", "id", packageName)
         mainScreen.id=mainScreenID
         screen.addView(mainScreen)
-        for (i in 0..boardSize-1) {
+        for (i in 0 until boardSize) {
 
             val arrayLinearLayout = LinearLayout(this)
             arrayLinearLayout.layoutParams = LinearLayout.LayoutParams(
@@ -67,7 +67,7 @@ class Visualization : AppCompatActivity() {
             for (j in 0 until boardSize) {
                 val sbutton: SparkButton = SparkButtonBuilder(this).setImageSizeDp(30)
                     .setActiveImage(R.drawable.ic_crown) //after creation
-                    .setInactiveImage(R.drawable.ic_mathematics_empty) //before ceration
+                    .setInactiveImage(R.drawable.ic_mathematics_empty) //before creation
                     .setPrimaryColor(
                         ContextCompat.getColor(
                             this,
