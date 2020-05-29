@@ -1,12 +1,14 @@
 package com.abhitom.NqueenVisualiser
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.google.gson.Gson
 import com.varunest.sparkbutton.SparkButton
 import com.varunest.sparkbutton.SparkButtonBuilder
 import kotlinx.android.synthetic.main.activity_visualization.*
@@ -22,6 +24,7 @@ class Visualization : AppCompatActivity() {
     var ld= mutableListOf<Int>()
     var rd= mutableListOf<Int>()
     var cl= mutableListOf<Int>()
+    var dataHolder:solutionMatrix=solutionMatrix()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_visualization)
@@ -93,15 +96,21 @@ class Visualization : AppCompatActivity() {
     }
 
     suspend fun printSolution(board: Array<IntArray>) {
+        var dataOfOneMatrix:MutableList<MutableList<Int>> = mutableListOf()
         for (i in 0 until boardSize) {
             for (j in 0 until boardSize)
             {
                 if(board[i][j]==1){
+                    var dataOfOneBox:MutableList<Int> = mutableListOf()
+                    dataOfOneBox.add(i)
+                    dataOfOneBox.add(j)
                     buttons[i][j].playAnimation()
                     buttons[i][j].setInactiveImage(R.drawable.ic_crown)
+                    dataOfOneMatrix.add(dataOfOneBox)
                 }
             }
         }
+        dataHolder.data.add(dataOfOneMatrix)
         delay(1000)
         Toast.makeText(this,"DONE",Toast.LENGTH_SHORT).show()
     }
@@ -144,10 +153,14 @@ class Visualization : AppCompatActivity() {
     suspend fun solveNQ() {
         val board =
             Array(boardSize) { IntArray(boardSize) }
-        if (!solveNQUtil(board, 0)) {
-            System.out.printf("Solution does not exist")
+        if (solveNQUtil(board, 0) == false) {
+            Toast.makeText(this,"NO SOLUTION",Toast.LENGTH_SHORT).show()
             return
         }
+        var dataString= Gson().toJson(dataHolder)
+        val intent= Intent(this,ShowSolutionMatrixVP::class.java)
+        intent.putExtra("solutionMatrix",dataString)
+        startActivity(intent)
         return
     }
 }
