@@ -27,10 +27,8 @@ class MainActivity : AppCompatActivity(), OnCrollerChangeListener {
         val sharedPreferences=this.getSharedPreferences("sharedPrefFile",Context.MODE_PRIVATE)
         val prefEditor=sharedPreferences.edit()
 
-        noOfQueensSB.setOnCrollerChangeListener(this)
         boardSizeSB.setOnCrollerChangeListener(this)
         startVisualizationBTN.setOnClickListener {
-            prefEditor.putInt("noOfQueens",noOfQueens)
             prefEditor.putInt("boardSize",boardSize)
             prefEditor.apply()
             prefEditor.commit()
@@ -40,14 +38,8 @@ class MainActivity : AppCompatActivity(), OnCrollerChangeListener {
     }
 
     override fun onProgressChanged(croller: Croller?, progress: Int) {
-        if (croller == noOfQueensSB){
-            showNoOfQueensTV.text = progress.toString()
-            noOfQueens = progress
-        }
-        if(croller == boardSizeSB){
             showBoardSizeTV.text = progress.toString()
             boardSize = progress
-        }
     }
 
     override fun onStartTrackingTouch(croller: Croller?) {}
