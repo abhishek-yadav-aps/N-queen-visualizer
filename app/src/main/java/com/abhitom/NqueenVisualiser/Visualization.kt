@@ -23,6 +23,7 @@ class Visualization : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_visualization)
+
         val sharedPreferences=this.getSharedPreferences("sharedPrefFile",Context.MODE_PRIVATE)
         noOfQueens=sharedPreferences.getInt("noOfQueens",0)
         boardSize=sharedPreferences.getInt("boardSize",0)-1
@@ -52,8 +53,8 @@ class Visualization : AppCompatActivity() {
             val buttoncol: MutableList<SparkButton> = ArrayList()
             for (j in 0..boardSize) {
                 val sbutton: SparkButton = SparkButtonBuilder(this).setImageSizeDp(30)
-                    .setActiveImage(R.drawable.ic_crown)
-                    .setInactiveImage(R.drawable.ic_mathematics_empty)
+                    .setActiveImage(R.drawable.ic_crown) //after creation
+                    .setInactiveImage(R.drawable.ic_mathematics_empty) //before ceration
                     .setPrimaryColor(
                         ContextCompat.getColor(
                             this,

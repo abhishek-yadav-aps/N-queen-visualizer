@@ -1,67 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:orientation="vertical"
-    android:padding="30dp">
+    tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="Number of Queens"
-        android:textSize="30sp"
-        android:layout_gravity="center_horizontal|center_vertical" />
-    <androidx.appcompat.widget.AppCompatSeekBar
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="20dp"
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#fff"
+        android:theme="@style/ThemeOverlay.AppCompat.Light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif"
+            android:text="N-Queen Visualizer"
+            android:textColor="#000"
+            android:textSize="24sp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <com.sdsmdg.harjot.crollerTest.Croller
         android:id="@+id/noOfQueensSB"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:layout_gravity="center_horizontal"
-        android:text="0"
-        android:layout_margin="20dp"
-        android:id="@+id/showNoOfQueensTV"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="Board Size"
-        android:textSize="30sp"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:gravity="center_vertical|center_horizontal"/>
-    <androidx.appcompat.widget.AppCompatSeekBar
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="20dp"
-        android:id="@+id/boardSizeSB"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:layout_gravity="center_horizontal"
-        android:text="0"
-        android:layout_margin="20dp"
-        android:id="@+id/showBoardSizeTV"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:text="START VISUALIZATION"
-        android:layout_margin="20dp"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/startVisualizationBTN"/>
+        android:layout_width="275dp"
+        android:layout_height="201dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        app:back_circle_color="#EDEDED"
+        app:indicator_color="#0B3C49"
+        app:indicator_width="10"
+        app:is_continuous="true"
+        app:label="Number of Queens"
+        app:label_color="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.055"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:main_circle_color="#FFFFFF"
+        app:max="8"
+        app:progress_primary_color="#0B3C49"
+        app:progress_secondary_color="#EEEEEE"
+        app:start_offset="45" />
 
-</LinearLayout>
+
+    <TextView
+        android:id="@+id/showNoOfQueensTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/noOfQueensSB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/noOfQueensSB"
+        app:layout_constraintTop_toTopOf="@+id/noOfQueensSB" />
+
+    <com.sdsmdg.harjot.crollerTest.Croller
+        android:id="@+id/boardSizeSB"
+        android:layout_width="275dp"
+        android:layout_height="201dp"
+        android:layout_marginTop="32dp"
+        app:back_circle_color="#EDEDED"
+        app:indicator_color="#0B3C49"
+        app:indicator_width="10"
+        app:is_continuous="true"
+        app:label="Board Size"
+        app:label_color="#000000"
+        app:layout_constraintStart_toStartOf="@+id/noOfQueensSB"
+        app:layout_constraintTop_toBottomOf="@+id/noOfQueensSB"
+        app:main_circle_color="#FFFFFF"
+        app:max="8"
+        app:progress_primary_color="#0B3C49"
+        app:progress_secondary_color="#EEEEEE"
+        app:start_offset="45" />
+
+    <TextView
+        android:id="@+id/showBoardSizeTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:text="0"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/boardSizeSB"
+        app:layout_constraintStart_toEndOf="@+id/boardSizeSB"
+        app:layout_constraintTop_toTopOf="@+id/boardSizeSB" />
+
+    <Button
+        android:id="@+id/startVisualizationBTN"
+        android:layout_width="311dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="32dp"
+        android:background="#fff"
+        android:text="START VISUALIZATION"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/boardSizeSB"
+        app:layout_constraintVertical_bias="0.78" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

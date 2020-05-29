@@ -7,20 +7,28 @@ import android.os.Bundle
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.widget.AppCompatSeekBar
+import com.sdsmdg.harjot.crollerTest.Croller
+import com.sdsmdg.harjot.crollerTest.OnCrollerChangeListener
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.math.floor
 
-class MainActivity : AppCompatActivity(), OnSeekBarChangeListener {
+class MainActivity : AppCompatActivity(), OnCrollerChangeListener {
 
     var noOfQueens=0
     var boardSize=0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
         val sharedPreferences=this.getSharedPreferences("sharedPrefFile",Context.MODE_PRIVATE)
         val prefEditor=sharedPreferences.edit()
-        noOfQueensSB.setOnSeekBarChangeListener(this)
-        boardSizeSB.setOnSeekBarChangeListener(this)
+
+        noOfQueensSB.setOnCrollerChangeListener(this)
+        boardSizeSB.setOnCrollerChangeListener(this)
         startVisualizationBTN.setOnClickListener {
             prefEditor.putInt("noOfQueens",noOfQueens)
             prefEditor.putInt("boardSize",boardSize)
@@ -31,20 +39,20 @@ class MainActivity : AppCompatActivity(), OnSeekBarChangeListener {
         }
     }
 
-    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-        if(seekBar==noOfQueensSB){
-            noOfQueens=progress/12
-            showNoOfQueensTV.text= (progress/12).toString()
+    override fun onProgressChanged(croller: Croller?, progress: Int) {
+        if (croller == noOfQueensSB){
+            showNoOfQueensTV.text = progress.toString()
+            noOfQueens = progress
         }
-        if(seekBar==boardSizeSB){
-            boardSize=progress/12
-            showBoardSizeTV.text= (progress/12).toString()
+        if(croller == boardSizeSB){
+            showBoardSizeTV.text = progress.toString()
+            boardSize = progress
         }
     }
 
-    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+    override fun onStartTrackingTouch(croller: Croller?) {}
 
-    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+    override fun onStopTrackingTouch(croller: Croller?) {}
 }
 
 
