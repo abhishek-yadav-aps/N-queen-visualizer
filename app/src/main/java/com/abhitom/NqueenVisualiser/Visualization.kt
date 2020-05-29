@@ -61,7 +61,7 @@ class Visualization : AppCompatActivity() {
             //arrayLinearLayout.setPadding(1,1,1,1)
 
             val buttoncol: MutableList<SparkButton> = ArrayList()
-            for (j in 0..boardSize-1) {
+            for (j in 0 until boardSize) {
                 val sbutton: SparkButton = SparkButtonBuilder(this).setImageSizeDp(30)
                     .setActiveImage(R.drawable.ic_crown) //after creation
                     .setInactiveImage(R.drawable.ic_mathematics_empty) //before ceration
@@ -144,7 +144,7 @@ class Visualization : AppCompatActivity() {
     suspend fun solveNQ() {
         val board =
             Array(boardSize) { IntArray(boardSize) }
-        if (solveNQUtil(board, 0) == false) {
+        if (!solveNQUtil(board, 0)) {
             System.out.printf("Solution does not exist")
             return
         }

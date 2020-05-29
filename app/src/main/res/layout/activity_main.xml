@@ -30,53 +30,24 @@
 
 
     <com.sdsmdg.harjot.crollerTest.Croller
-        android:id="@+id/noOfQueensSB"
-        android:layout_width="275dp"
-        android:layout_height="201dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        app:back_circle_color="#EDEDED"
-        app:indicator_color="#0B3C49"
-        app:indicator_width="10"
-        app:is_continuous="true"
-        app:label="Number of Queens"
-        app:label_color="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.055"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:main_circle_color="#FFFFFF"
-        app:max="8"
-        app:progress_primary_color="#0B3C49"
-        app:progress_secondary_color="#EEEEEE"
-        app:start_offset="45" />
-
-
-    <TextView
-        android:id="@+id/showNoOfQueensTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/noOfQueensSB"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/noOfQueensSB"
-        app:layout_constraintTop_toTopOf="@+id/noOfQueensSB" />
-
-    <com.sdsmdg.harjot.crollerTest.Croller
         android:id="@+id/boardSizeSB"
-        android:layout_width="275dp"
-        android:layout_height="201dp"
+        android:layout_width="0dp"
+        android:layout_height="230dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
         app:back_circle_color="#EDEDED"
         app:indicator_color="#0B3C49"
         app:indicator_width="10"
         app:is_continuous="true"
         app:label="Board Size"
         app:label_color="#000000"
-        app:layout_constraintStart_toStartOf="@+id/noOfQueensSB"
-        app:layout_constraintTop_toBottomOf="@+id/noOfQueensSB"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.13999999"
         app:main_circle_color="#FFFFFF"
         app:max="8"
         app:progress_primary_color="#0B3C49"
@@ -87,12 +58,13 @@
         android:id="@+id/showBoardSizeTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
+        android:layout_marginTop="8dp"
         android:text="0"
+        android:textColor="#0B3C49"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/boardSizeSB"
-        app:layout_constraintStart_toEndOf="@+id/boardSizeSB"
-        app:layout_constraintTop_toTopOf="@+id/boardSizeSB" />
+        app:layout_constraintEnd_toEndOf="@+id/boardSizeSB"
+        app:layout_constraintStart_toStartOf="@+id/boardSizeSB"
+        app:layout_constraintTop_toBottomOf="@+id/boardSizeSB" />
 
     <Button
         android:id="@+id/startVisualizationBTN"
