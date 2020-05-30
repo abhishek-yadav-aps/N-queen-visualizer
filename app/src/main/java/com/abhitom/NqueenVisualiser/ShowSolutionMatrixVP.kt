@@ -1,5 +1,6 @@
 package com.abhitom.NqueenVisualiser
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -20,33 +21,41 @@ class ShowSolutionMatrixVP : AppCompatActivity() {
     private var mainPagerAdapter : MainPageAdapter = MainPageAdapter()
     private var boardSize:Int = 0
     val buttons: MutableList<MutableList<SparkButton>> = ArrayList()
-
+    private lateinit var dataHolder:solutionMatrix
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_solution_matrix_v_p)
         val bundle :Bundle ?=intent.extras
         val dataString = bundle!!.getString("solutionMatrix")
-        val dataHolder= Gson().fromJson(dataString,solutionMatrix::class.java)
+        dataHolder = Gson().fromJson(dataString,solutionMatrix::class.java)
         Toast.makeText(this,dataHolder.data.size.toString(), Toast.LENGTH_SHORT).show()
 
-        Log.d("TAG", dataHolder.toString())
+        Log.d("TAG", dataString.toString())
 
-        boardSize = dataHolder.data.size
+        val sharedPreferences=this.getSharedPreferences("sharedPrefFile", Context.MODE_PRIVATE)
+        boardSize=sharedPreferences.getInt("boardSize",0)
 
         mainPagerAdapter = MainPageAdapter()
         viewPager.adapter = mainPagerAdapter
 
-        val inflater: LayoutInflater = layoutInflater
-        val v0: LinearLayout = inflater.inflate(R.layout.dummy_resource, null) as LinearLayout
-        mainPagerAdapter.addView(v0, 0)
-        mainPagerAdapter.notifyDataSetChanged()
+        if(dataHolder.data.size <= 0 ){  //If no results available.
+            val inflater: LayoutInflater = layoutInflater
+            val v0: LinearLayout = inflater.inflate(R.layout.dummy_resource, null) as LinearLayout
+            mainPagerAdapter.addView(v0, 0)
+            mainPagerAdapter.notifyDataSetChanged()
+        }
+        else{
+            // adding views to the ViewPager
+            for(i in 0 until dataHolder.data.size){
+                createButtonGrid()
+                printResult()
+            }
+        }
 
-        // adding views to the ViewPager
-        for(i in 0 until dataHolder.data.size){
-         //   createButtonGrid()
-           // printResult()
-         }
+    }
+
+    private fun printResult(){
 
     }
 
@@ -60,7 +69,10 @@ class ShowSolutionMatrixVP : AppCompatActivity() {
         mainScreen.orientation = LinearLayout.VERTICAL
         var mainScreenID = resources.getIdentifier("mainScreen", "id", packageName)
         mainScreen.id=mainScreenID
-        screen_result.addView(mainScreen)
+
+        val inflater: LayoutInflater = layoutInflater
+        val v0: LinearLayout = inflater.inflate(R.layout.answer_layout, null) as LinearLayout
+        v0.addView(mainScreen)
 
         for (i in 0 until boardSize) {
 
@@ -101,9 +113,6 @@ class ShowSolutionMatrixVP : AppCompatActivity() {
             buttons.add(buttoncol)
             mainScreen.addView(arrayLinearLayout)
         }
-
-        val inflater: LayoutInflater = layoutInflater
-        val v0: LinearLayout = inflater.inflate(R.layout.answer_layout, null) as LinearLayout
         addView(v0)
     }
 
