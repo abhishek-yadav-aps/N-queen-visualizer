@@ -48,7 +48,7 @@ class ShowSolutionMatrixVP : AppCompatActivity() {
             // adding views to the ViewPager
             for(i in 0 until dataHolder.data.size){
                 createButtonGrid()
-                printResult(dataHolder.data[i]
+                printResult(dataHolder.data[i])
                     //change here to next page
                 }
         }
@@ -58,7 +58,6 @@ class ShowSolutionMatrixVP : AppCompatActivity() {
         for (i in 0 until boardSize) {
             buttons[mutableList[i][0]][mutableList[i][1]].setInactiveImage(R.drawable.ic_crown)
         }
-    createButtonGrid()
     }
 
     private fun createButtonGrid() {
