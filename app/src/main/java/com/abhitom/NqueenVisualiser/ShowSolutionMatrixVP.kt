@@ -19,7 +19,6 @@ class ShowSolutionMatrixVP : AppCompatActivity() {
 
     private var mainPagerAdapter : MainPageAdapter = MainPageAdapter()
     private var boardSize:Int = 0
-    val buttons: MutableList<MutableList<SparkButton>> = ArrayList()
     private lateinit var dataHolder:solutionMatrix
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,22 +45,22 @@ class ShowSolutionMatrixVP : AppCompatActivity() {
         }
         else{
             // adding views to the ViewPager
-            for(i in 0 until dataHolder.data.size){
-                createButtonGrid()
-                printResult(dataHolder.data[i])
-                    //change here to next page
-                }
+            for(i in 0 until dataHolder.data.size) {
+                createButtonGrid(dataHolder.data[i])
+            }
         }
+
+        //checking the Last Page listener
+        if(dataHolder.data.size-1 == mainPagerAdapter.getItemPosition(getCurrentPage())){
+            swipe.text = (R.string.app_name).toString()
+        }
+
     }
 
-    private fun printResult(mutableList: MutableList<MutableList<Int>>) {
-        for (i in 0 until boardSize) {
-            buttons[mutableList[i][0]][mutableList[i][1]].setInactiveImage(R.drawable.ic_crown)
-        }
-    }
 
-    private fun createButtonGrid() {
-        // new dynamically declared linear layout inside screen linearlayout so grid can be deleted at any time
+    private fun createButtonGrid(mutableList: MutableList<MutableList<Int>>) {
+        // new dynamically declared linear layout inside screen linear layout so grid can be deleted at any time
+        val buttons: MutableList<MutableList<SparkButton>> = ArrayList()
         val mainScreen = LinearLayout(this)
         mainScreen.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
@@ -114,6 +113,11 @@ class ShowSolutionMatrixVP : AppCompatActivity() {
             buttons.add(buttoncol)
             mainScreen.addView(arrayLinearLayout)
         }
+
+        for (i in 0 until boardSize) {
+            buttons[mutableList[i][0]][mutableList[i][1]].setInactiveImage(R.drawable.ic_crown)
+        }
+
         addView(v0)
     }
 
