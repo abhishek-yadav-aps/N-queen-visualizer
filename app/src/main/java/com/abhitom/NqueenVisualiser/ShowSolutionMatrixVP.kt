@@ -14,7 +14,6 @@ import com.google.gson.Gson
 import com.varunest.sparkbutton.SparkButton
 import com.varunest.sparkbutton.SparkButtonBuilder
 import kotlinx.android.synthetic.main.activity_show_solution_matrix_v_p.*
-import kotlinx.android.synthetic.main.answer_layout.*
 
 class ShowSolutionMatrixVP : AppCompatActivity() {
 
@@ -49,14 +48,17 @@ class ShowSolutionMatrixVP : AppCompatActivity() {
             // adding views to the ViewPager
             for(i in 0 until dataHolder.data.size){
                 createButtonGrid()
-                printResult()
-            }
+                printResult(dataHolder.data[i]
+                    //change here to next page
+                }
         }
-
     }
 
-    private fun printResult(){
-
+    private fun printResult(mutableList: MutableList<MutableList<Int>>) {
+        for (i in 0 until boardSize) {
+            buttons[mutableList[i][0]][mutableList[i][1]].setInactiveImage(R.drawable.ic_crown)
+        }
+    createButtonGrid()
     }
 
     private fun createButtonGrid() {
