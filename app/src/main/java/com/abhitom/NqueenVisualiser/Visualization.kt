@@ -1,8 +1,12 @@
 package com.abhitom.NqueenVisualiser
 
+import android.animation.ArgbEvaluator
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.PixelCopy.SUCCESS
@@ -26,6 +30,7 @@ class Visualization : AppCompatActivity() {
     var ld= mutableListOf<Int>()
     var rd= mutableListOf<Int>()
     var cl= mutableListOf<Int>()
+    var i=1
     var dataHolder:solutionMatrix=solutionMatrix()
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -100,6 +105,8 @@ class Visualization : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.M)
     suspend fun printSolution(board: Array<IntArray>) {
+        Snackbar.make(findViewById(android.R.id.content), "Solution - "+i.toString(), Snackbar.LENGTH_LONG).show()
+        i++
         var dataOfOneMatrix:MutableList<MutableList<Int>> = mutableListOf()
         for (i in 0 until boardSize) {
             for (j in 0 until boardSize)
@@ -116,10 +123,19 @@ class Visualization : AppCompatActivity() {
         }
         dataHolder.data.add(dataOfOneMatrix)
         CoroutineScope(Dispatchers.Main).launch{
-            screen.setBackgroundColor(getColor(R.color.Green))
-            delay(500)
-            screen.background = resources.getDrawable(R.drawable.text_border)
+            val objectAnimator= ObjectAnimator.ofObject(
+                parentScreen,
+                "backgroundColor",
+                ArgbEvaluator(),
+                Color.parseColor("#FFFFFF"),
+                Color.parseColor("#000000"))
+            objectAnimator.repeatCount=1
+            objectAnimator.repeatMode= ValueAnimator.REVERSE
+            objectAnimator.duration=1000
+            objectAnimator.start()
+
         }
+        delay(2000)
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
