@@ -1,21 +1,23 @@
 package com.abhitom.NqueenVisualiser
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.view.PixelCopy.SUCCESS
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.varunest.sparkbutton.SparkButton
 import com.varunest.sparkbutton.SparkButtonBuilder
 import kotlinx.android.synthetic.main.activity_visualization.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class Visualization : AppCompatActivity() {
 
@@ -25,6 +27,7 @@ class Visualization : AppCompatActivity() {
     var rd= mutableListOf<Int>()
     var cl= mutableListOf<Int>()
     var dataHolder:solutionMatrix=solutionMatrix()
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_visualization)
@@ -95,6 +98,7 @@ class Visualization : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     suspend fun printSolution(board: Array<IntArray>) {
         var dataOfOneMatrix:MutableList<MutableList<Int>> = mutableListOf()
         for (i in 0 until boardSize) {
@@ -111,10 +115,14 @@ class Visualization : AppCompatActivity() {
             }
         }
         dataHolder.data.add(dataOfOneMatrix)
-        delay(1000)
-        Toast.makeText(this,"DONE",Toast.LENGTH_SHORT).show()
+        CoroutineScope(Dispatchers.Main).launch{
+            screen.setBackgroundColor(getColor(R.color.Green))
+            delay(500)
+            screen.background = resources.getDrawable(R.drawable.text_border)
+        }
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     suspend fun solveNQUtil(board: Array<IntArray>, col: Int): Boolean {
         if (col == boardSize) {
             var job1=GlobalScope.launch(Dispatchers.Main) {
@@ -150,11 +158,15 @@ class Visualization : AppCompatActivity() {
         return res
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     suspend fun solveNQ() {
         val board =
             Array(boardSize) { IntArray(boardSize) }
-        if (solveNQUtil(board, 0) == false) {
-            Toast.makeText(this,"NO SOLUTION",Toast.LENGTH_SHORT).show()
+        if (!solveNQUtil(board, 0)) {
+            Snackbar.make(findViewById(android.R.id.content), "No results found!", Snackbar.LENGTH_LONG).show()
+            delay(3000)
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
             return
         }
         var dataString= Gson().toJson(dataHolder)

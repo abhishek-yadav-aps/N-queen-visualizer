@@ -51,11 +51,6 @@ class ShowSolutionMatrixVP : AppCompatActivity() {
             }
         }
 
-        //checking the Last Page listener
-        if(dataHolder.data.size-1 == mainPagerAdapter.getItemPosition(getCurrentPage())){
-            swipe.text = (R.string.app_name).toString()
-        }
-
         resetbtn.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
