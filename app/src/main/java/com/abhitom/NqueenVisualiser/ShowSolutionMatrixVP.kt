@@ -1,6 +1,7 @@
 package com.abhitom.NqueenVisualiser
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -53,6 +54,11 @@ class ShowSolutionMatrixVP : AppCompatActivity() {
         //checking the Last Page listener
         if(dataHolder.data.size-1 == mainPagerAdapter.getItemPosition(getCurrentPage())){
             swipe.text = (R.string.app_name).toString()
+        }
+
+        resetbtn.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
 
     }

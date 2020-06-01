@@ -6,9 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".Visualization"
     android:orientation="vertical">
+
     <FrameLayout
         android:layout_width="350dp"
         android:layout_height="350dp"
+        android:background="@drawable/text_border"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="300dp">
         <LinearLayout
